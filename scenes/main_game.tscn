@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4lbffa2xhd1l"]
+[gd_scene load_steps=12 format=3 uid="uid://b4lbffa2xhd1l"]
 
-[ext_resource type="Texture2D" uid="uid://bae6oca5u85n5" path="res://assets/oak-cladding-1300-mm-architextures.jpg" id="1_7sv8i"]
 [ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
+[ext_resource type="Material" uid="uid://0srlogl3whdu" path="res://assets/materials/wall.tres" id="3_qxcw0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0hhfp"]
 sky_top_color = Color(0.146665, 0.182903, 0.233298, 1)
@@ -19,16 +19,13 @@ background_mode = 2
 background_color = Color(0.362829, 0.362829, 0.362829, 1)
 sky = SubResource("Sky_p23ln")
 tonemap_mode = 2
-fog_enabled = true
 fog_light_color = Color(0.296733, 0.32402, 0.366914, 1)
 fog_light_energy = 2.18
 fog_density = 0.015
+volumetric_fog_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k0ic"]
-albedo_color = Color(0.278162, 0.100121, 0.0249779, 1)
-albedo_texture = ExtResource("1_7sv8i")
-uv1_scale = Vector3(0.06, 0.06, 0.06)
-uv1_triplanar = true
+albedo_color = Color(0.1594, 0.0448286, 0.00867484, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rw23c"]
 size = Vector3(25, 0.365, 25)
@@ -38,6 +35,11 @@ points = PackedVector3Array(-12.5, -0.1825, -12.5, -12.5, 0.1825, -12.5, 12.5, -
 
 [sub_resource type="BoxMesh" id="BoxMesh_g2gec"]
 size = Vector3(1, 13.99, 27.145)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4k2bb"]
+size = Vector3(29.325, 1, 27.095)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lni3g"]
 
 [node name="MainGame" type="Node3D"]
 
@@ -65,16 +67,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.411505, 3.89696, -0.971097
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HouseWall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9351, 6, 0)
+material_override = ExtResource("3_qxcw0")
 mesh = SubResource("BoxMesh_g2gec")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="HouseWall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8671, 6, 0)
+material_override = ExtResource("3_qxcw0")
 mesh = SubResource("BoxMesh_g2gec")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="HouseWall"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0340094, 6, -12.9011)
+material_override = ExtResource("3_qxcw0")
 mesh = SubResource("BoxMesh_g2gec")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="HouseWall"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0340105, 6, 12.9011)
+material_override = ExtResource("3_qxcw0")
 mesh = SubResource("BoxMesh_g2gec")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="HouseWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
+mesh = SubResource("BoxMesh_4k2bb")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.4461, 0)
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("SphereMesh_lni3g")
+skeleton = NodePath("../OmniLight3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.98596, 0)
+light_color = Color(1, 0, 0, 1)
+light_volumetric_fog_energy = 5.202
+omni_range = 11.191
+omni_attenuation = 2.0
