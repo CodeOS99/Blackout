@@ -5,11 +5,10 @@
 [ext_resource type="Material" uid="uid://0srlogl3whdu" path="res://assets/materials/wall.tres" id="3_qxcw0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0hhfp"]
-sky_top_color = Color(0.146665, 0.182903, 0.233298, 1)
-sky_horizon_color = Color(0, 0, 0, 1)
-sky_cover_modulate = Color(0, 0, 0, 1)
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(1, 0, 0, 1)
 ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(1, 0, 0, 1)
 sun_angle_max = 0.0
 
 [sub_resource type="Sky" id="Sky_p23ln"]
@@ -172,7 +171,5 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_uyacc")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [editable path="Player"]

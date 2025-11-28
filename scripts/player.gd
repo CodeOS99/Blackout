@@ -20,11 +20,11 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-
+@onready var dialogue_label = $Control/HUD/DialogueLabel
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	add_dialogue("one two", 3)
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -79,3 +79,8 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+func add_dialogue(text: String, wait_time: float): # wait_time is the time for which the ocmplete text is shown
+	dialogue_label.text = text
+	dialogue_label.wait_time = wait_time
+	dialogue_label.typing = true
