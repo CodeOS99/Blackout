@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4lbffa2xhd1l"]
+[gd_scene load_steps=20 format=3 uid="uid://b4lbffa2xhd1l"]
 
 [ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
+[ext_resource type="PackedScene" uid="uid://d3cdat5hlunpu" path="res://assets/doors/Door A.fbx" id="3_5xfrt"]
 [ext_resource type="Material" uid="uid://0srlogl3whdu" path="res://assets/materials/wall.tres" id="3_qxcw0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0hhfp"]
@@ -34,6 +35,21 @@ size = Vector3(25, 0.365, 25)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0krn5"]
 points = PackedVector3Array(-12.5, -0.1825, -12.5, -12.5, 0.1825, -12.5, 12.5, -0.1825, -12.5, -12.5, -0.1825, 12.5, -12.5, 0.1825, 12.5, 12.5, 0.1825, -12.5, 12.5, -0.1825, 12.5, 12.5, 0.1825, 12.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_iwwbf"]
+size = Vector3(18.155, 0.365, 28.325)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e1liu"]
+points = PackedVector3Array(9.0775, 0.1825, 14.1625, 9.0775, -0.1825, 14.1625, 9.0775, 0.1825, -14.1625, -9.0775, 0.1825, 14.1625, -9.0775, -0.1825, 14.1625, 9.0775, -0.1825, -14.1625, -9.0775, 0.1825, -14.1625, -9.0775, -0.1825, -14.1625)
+
+[sub_resource type="BoxMesh" id="BoxMesh_brgri"]
+size = Vector3(1, 13.99, 13.68)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ehts7"]
+size = Vector3(1, 13.99, 8.88)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c5fnm"]
+size = Vector3(1, 3.94, 8.88)
+
 [sub_resource type="BoxMesh" id="BoxMesh_g2gec"]
 size = Vector3(1, 13.99, 27.145)
 
@@ -41,6 +57,15 @@ size = Vector3(1, 13.99, 27.145)
 size = Vector3(29.325, 1, 27.095)
 
 [sub_resource type="SphereMesh" id="SphereMesh_lni3g"]
+
+[sub_resource type="Curve3D" id="Curve3D_tn4dd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 19.2721, -1.46041, -2.64092, -2.53944, 2.13808, 0.106218, 2.53944, -2.13808, -0.106218, 37.8068, -0.364244, -11.1577, 16.956, -5.49031, 9.49161, -16.956, 5.49031, -9.49161, 32, -3, -33, -13.2227, -7.76505, 36.5495, 13.2227, 7.76505, -36.5495, -31.7146, -12.8205, -39.6492, -33.6744, -4.30423, -10.6969, 33.6744, 4.30423, 10.6969, 27.3872, -24.0488, -61.847, 4.95002, -19.7434, 9.10026, -4.95002, 19.7434, -9.10026, 36.8805, -13.2346, -106.105),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyacc"]
 
 [node name="MainGame" type="Node3D"]
 
@@ -50,6 +75,9 @@ environment = SubResource("Environment_ik1a0")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Door A" parent="." instance=ExtResource("3_5xfrt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.9146, 0, -2)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
@@ -61,6 +89,14 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_0krn5")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4965, -0.598711, 0)
+mesh = SubResource("BoxMesh_iwwbf")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4965, -0.598711, 0)
+shape = SubResource("ConvexPolygonShape3D_e1liu")
+
 [node name="Player" parent="." instance=ExtResource("1_t0vlm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.411505, 3.89696, -0.971097)
 
@@ -70,9 +106,19 @@ spot_range = 11.5775
 [node name="HouseWall" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HouseWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9351, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9351, 6, 7)
 material_override = ExtResource("3_qxcw0")
-mesh = SubResource("BoxMesh_g2gec")
+mesh = SubResource("BoxMesh_brgri")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="HouseWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9351, 6, -8.77004)
+material_override = ExtResource("3_qxcw0")
+mesh = SubResource("BoxMesh_ehts7")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="HouseWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9351, 11.8169, -1)
+material_override = ExtResource("3_qxcw0")
+mesh = SubResource("BoxMesh_c5fnm")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="HouseWall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8671, 6, 0)
@@ -107,5 +153,26 @@ light_energy = 6.98
 light_volumetric_fog_energy = 5.202
 omni_range = 11.191
 omni_attenuation = 2.0
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_tn4dd")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(0.898794, 0, -0.438371, 0, 1, 0, 0.438371, 0, 0.898794, 11.9418, 0.673074, -20.2624)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 0.35, 9.695, 0.35, 1, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_uyacc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [editable path="Player"]
