@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4lbffa2xhd1l"]
+
+[ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pxmk4"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_p23ln"]
+sky_material = SubResource("ProceduralSkyMaterial_pxmk4")
+
+[sub_resource type="Environment" id="Environment_ik1a0"]
+background_mode = 2
+sky = SubResource("Sky_p23ln")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_rw23c"]
+size = Vector3(25, 0.365, 25)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0krn5"]
+points = PackedVector3Array(-12.5, -0.1825, -12.5, -12.5, 0.1825, -12.5, 12.5, -0.1825, -12.5, -12.5, -0.1825, 12.5, -12.5, 0.1825, 12.5, 12.5, 0.1825, -12.5, 12.5, -0.1825, 12.5, 12.5, 0.1825, 12.5)
+
+[node name="MainGame" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ik1a0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_rw23c")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConvexPolygonShape3D_0krn5")
+
+[node name="Player" parent="." instance=ExtResource("1_t0vlm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.411505, 3.89696, -0.971097)
