@@ -23,6 +23,7 @@ fog_light_color = Color(0.296733, 0.32402, 0.366914, 1)
 fog_light_energy = 2.18
 fog_density = 0.015
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.025
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k0ic"]
 albedo_color = Color(0.1594, 0.0448286, 0.00867484, 1)
@@ -63,6 +64,9 @@ shape = SubResource("ConvexPolygonShape3D_0krn5")
 [node name="Player" parent="." instance=ExtResource("1_t0vlm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.411505, 3.89696, -0.971097)
 
+[node name="SpotLight3D" parent="Player/Head/Camera3D/MeshInstance3D2" index="0"]
+spot_range = 11.5775
+
 [node name="HouseWall" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HouseWall"]
@@ -97,8 +101,11 @@ mesh = SubResource("SphereMesh_lni3g")
 skeleton = NodePath("../OmniLight3D")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.98596, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.46575, 0)
 light_color = Color(1, 0, 0, 1)
+light_energy = 6.98
 light_volumetric_fog_energy = 5.202
 omni_range = 11.191
 omni_attenuation = 2.0
+
+[editable path="Player"]
