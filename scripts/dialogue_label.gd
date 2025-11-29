@@ -12,13 +12,13 @@ func _process(delta: float) -> void:
 		typing_timer -= delta
 		if typing_timer <= 0:
 			typing_timer = TIME_BETWEEN_LETTERS
-			visible_characters += 1
+			visible_characters += 1 
 			if visible_characters == len(text):
 				typing = false
 				waiting = true
-	elif waiting:
+	elif waiting  :
 		if wait_time > 0:
-			wait_time -= delta
+			wait_time -= delta 
 		else:
 			waiting = false
 			var t = get_tree().create_tween()

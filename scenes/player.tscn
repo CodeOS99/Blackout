@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dn85pabpofvf6"]
+[gd_scene load_steps=8 format=3 uid="uid://dn85pabpofvf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sey8o"]
 [ext_resource type="Script" path="res://scripts/dialogue_label.gd" id="2_xoino"]
+[ext_resource type="Shader" path="res://scripts/shader/screen_snow.gdshader" id="3_fc83t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ngrx"]
 height = 5.0
@@ -11,6 +12,13 @@ height = 5.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_l12op"]
 size = Vector3(0.43, 0.35, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nbony"]
+shader = ExtResource("3_fc83t")
+shader_parameter/snow_speed = 3.0
+shader_parameter/particle_density = 0.4
+shader_parameter/wind_chaos = 1.2
+shader_parameter/vignette_amount = 0.12
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_sey8o")
@@ -37,7 +45,9 @@ light_energy = 16.0
 spot_range = 6.19936
 spot_angle = 38.3213
 
-[node name="Control" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,16 +56,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HUD" type="Control" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="QuestLabel" type="Label" parent="Control/HUD"]
+[node name="QuestLabel" type="Label" parent="CanvasLayer/HUD"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 16.0
@@ -63,7 +64,7 @@ theme_override_font_sizes/font_size = 30
 text = "Current Objective: Turn on 
 generators (0/3)"
 
-[node name="DialogueLabel" type="RichTextLabel" parent="Control/HUD"]
+[node name="DialogueLabel" type="RichTextLabel" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -74,3 +75,13 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/normal_font_size = 30
 script = ExtResource("2_xoino")
+
+[node name="BlizzardShaderRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_nbony")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

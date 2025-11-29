@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 var speed
 const WALK_SPEED = 5.0
@@ -20,11 +20,13 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-@onready var dialogue_label = $Control/HUD/DialogueLabel
+@onready var dialogue_label = $CanvasLayer/HUD/DialogueLabel
+@onready var blizzard_shader_rect = $CanvasLayer/BlizzardShaderRect
 
 func _ready():
+	Globals.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	add_dialogue("one two", 3)
+	#add_dialogue("one two", 3)
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
