@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn85pabpofvf6"]
+[gd_scene load_steps=14 format=3 uid="uid://dn85pabpofvf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sey8o"]
 [ext_resource type="AudioStream" uid="uid://dppuop8vnr76a" path="res://assets/audio/music/footsteps.mp3" id="2_b0d0t"]
@@ -22,6 +22,67 @@ shader_parameter/snow_speed = 3.0
 shader_parameter/particle_density = 0.4
 shader_parameter/wind_chaos = 1.2
 shader_parameter/vignette_amount = 0.12
+
+[sub_resource type="Animation" id="Animation_s07ps"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/Shovel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.155, -0.824, -1.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Camera3D/Shovel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.436332, 3.04036, 0.436332)]
+}
+
+[sub_resource type="Animation" id="Animation_1c3nd"]
+resource_name = "use_shovel"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/Shovel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.666667, 1.06667, 1.23333, 1.3),
+"transitions": PackedFloat32Array(1, -0.5, -2, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.155, -0.824, -1.3), Vector3(-1.155, -2.214, -4.23), Vector3(-1.155, -2.214, -4.23), Vector3(-1.155, 0.281, -0.985), Vector3(-1.155, 0.281, -0.985), Vector3(-1.155, -0.824, -1.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Camera3D/Shovel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.06667, 1.23333, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.436332, 3.04036, 0.436332), Vector3(-0.780162, 3.04036, 0.436332), Vector3(-0.780162, 3.04036, 0.436332), Vector3(0.436332, 3.04036, 0.436332)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l41wt"]
+_data = {
+"RESET": SubResource("Animation_s07ps"),
+"use_shovel": SubResource("Animation_1c3nd")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_sey8o")
@@ -56,8 +117,8 @@ light_energy = 16.0
 spot_range = 6.19936
 spot_angle = 38.3213
 
-[node name="Lowpoly_pala" parent="Head/Camera3D" instance=ExtResource("4_0i5ad")]
-transform = Transform3D(-1.1487, 0.59691, 0.119065, 0.497929, 1.06781, -0.549404, -0.350064, -0.439859, -1.17217, -1.155, -0.824, -1.3)
+[node name="Shovel" parent="Head/Camera3D" instance=ExtResource("4_0i5ad")]
+transform = Transform3D(-1.1487, 0.59691, 0.119069, 0.497927, 1.06781, -0.549404, -0.350067, -0.439856, -1.17217, -1.155, -0.824, -1.3)
 visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -134,3 +195,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l41wt")
+}

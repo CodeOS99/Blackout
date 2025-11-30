@@ -88,6 +88,11 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("interact"):
+		if $Head/Camera3D/Shovel.visible:
+			$AnimationPlayer.play("use_shovel")
+
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
@@ -104,4 +109,5 @@ func is_shovel_in_range(in_range: bool):
 
 func get_shovel():
 	$CanvasLayer/HUD/PickupShovelLabel.visible = false
-	$Head/Camera3D/Lowpoly_pala.visible = true
+	$Head/Camera3D/Shovel.visible = true
+	add_dialogue("(press E to use shovel)", 3)
