@@ -88,7 +88,6 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
@@ -102,3 +101,7 @@ func add_dialogue(text: String, wait_time: float): # wait_time is the time for w
 
 func is_shovel_in_range(in_range: bool):
 	$CanvasLayer/HUD/PickupShovelLabel.visible = in_range
+
+func get_shovel():
+	$CanvasLayer/HUD/PickupShovelLabel.visible = false
+	$Head/Camera3D/Lowpoly_pala.visible = true

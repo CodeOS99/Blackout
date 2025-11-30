@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn85pabpofvf6"]
+[gd_scene load_steps=11 format=3 uid="uid://dn85pabpofvf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sey8o"]
 [ext_resource type="AudioStream" uid="uid://dppuop8vnr76a" path="res://assets/audio/music/footsteps.mp3" id="2_b0d0t"]
 [ext_resource type="Script" path="res://scripts/dialogue_label.gd" id="2_xoino"]
 [ext_resource type="Shader" path="res://scripts/shader/screen_snow.gdshader" id="3_fc83t"]
 [ext_resource type="AudioStream" uid="uid://bb35xql543q6a" path="res://assets/audio/music/snow_steps.mp3" id="3_q7ww6"]
+[ext_resource type="PackedScene" uid="uid://lr3c4e0dtxgv" path="res://assets/shovel/source/Lowpoly_pala.fbx" id="4_0i5ad"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ngrx"]
 height = 5.0
@@ -54,6 +55,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.00842)
 light_energy = 16.0
 spot_range = 6.19936
 spot_angle = 38.3213
+
+[node name="Lowpoly_pala" parent="Head/Camera3D" instance=ExtResource("4_0i5ad")]
+transform = Transform3D(-1.1487, 0.59691, 0.119065, 0.497929, 1.06781, -0.549404, -0.350064, -0.439859, -1.17217, -1.155, -0.824, -1.3)
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
