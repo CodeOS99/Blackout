@@ -17,6 +17,9 @@ var t_bob = 0.0
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
 
+var can_shovel := true
+var quest_completed := 0
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
 
@@ -92,7 +95,7 @@ func _physics_process(delta):
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("interact"):
-		if $Head/Camera3D/Shovel.visible:
+		if $Head/Camera3D/Shovel.visible and can_shovel:
 			$AnimationPlayer.play("use_shovel")
 	
 	if using_shovel:
@@ -118,3 +121,10 @@ func get_shovel():
 	$CanvasLayer/HUD/PickupShovelLabel.visible = false
 	$Head/Camera3D/Shovel.visible = true
 	add_dialogue("(press E to use shovel)", 3)
+
+func is_fusebox_in_range(in_range: bool):
+	$CanvasLayer/HUD/FixFuseboxLabel.visible = in_range
+
+func get_generator():
+	quest_completed += 1
+	$CanvasLayer/HUD/QuestLabel.text = "Current Objective:\nTurn on generators (" + str(quest_completed) + "/2)"
