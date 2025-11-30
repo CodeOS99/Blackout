@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody3D
 
+@export var using_shovel := false
+
 var speed
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
@@ -92,6 +94,11 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("interact"):
 		if $Head/Camera3D/Shovel.visible:
 			$AnimationPlayer.play("use_shovel")
+	
+	if using_shovel:
+		for body in $Head/Camera3D/Shovel/Area3D.get_overlapping_bodies():
+			if body.is_in_group("snow"):
+				body.change_x_size(5)
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO

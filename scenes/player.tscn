@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dn85pabpofvf6"]
+[gd_scene load_steps=15 format=3 uid="uid://dn85pabpofvf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sey8o"]
 [ext_resource type="AudioStream" uid="uid://dppuop8vnr76a" path="res://assets/audio/music/footsteps.mp3" id="2_b0d0t"]
@@ -15,6 +15,9 @@ height = 5.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_l12op"]
 size = Vector3(0.43, 0.35, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j65t1"]
+size = Vector3(0.78363, 1, 4.58524)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nbony"]
 shader = ExtResource("3_fc83t")
@@ -49,6 +52,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0.436332, 3.04036, 0.436332)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:using_shovel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_1c3nd"]
 resource_name = "use_shovel"
@@ -76,6 +91,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0.436332, 3.04036, 0.436332), Vector3(-0.780162, 3.04036, 0.436332), Vector3(-0.780162, 3.04036, 0.436332), Vector3(0.436332, 3.04036, 0.436332)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:using_shovel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l41wt"]
@@ -120,6 +147,13 @@ spot_angle = 38.3213
 [node name="Shovel" parent="Head/Camera3D" instance=ExtResource("4_0i5ad")]
 transform = Transform3D(-1.1487, 0.59691, 0.119069, 0.497927, 1.06781, -0.549404, -0.350067, -0.439856, -1.17217, -1.155, -0.824, -1.3)
 visible = false
+
+[node name="Area3D" type="Area3D" parent="Head/Camera3D/Shovel" groups=["shovel"]]
+transform = Transform3D(0.769233, -7.45058e-09, 0, -2.23517e-08, 0.769232, 1.49012e-08, 1.49012e-08, 0, 0.76923, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/Shovel/Area3D"]
+transform = Transform3D(0.999999, -5.88596e-07, 4.05312e-06, -2.6077e-07, 0.999992, 6.76513e-06, 5.96046e-08, -4.47035e-07, 0.999978, 0.0543475, -6.67572e-06, -0.545404)
+shape = SubResource("BoxShape3D_j65t1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
