@@ -127,4 +127,10 @@ func is_fusebox_in_range(in_range: bool):
 
 func get_generator():
 	quest_completed += 1
+	if quest_completed == 2:
+		add_dialogue("Finally I can sleep now...", 3)
+		var t = get_tree().create_timer(6)
+		t.timeout.connect(func():
+			get_tree().change_scene_to_file("res://scenes/end.tscn")
+		)
 	$CanvasLayer/HUD/QuestLabel.text = "Current Objective:\nTurn on generators (" + str(quest_completed) + "/2)"

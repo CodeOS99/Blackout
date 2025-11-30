@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://b4lbffa2xhd1l"]
+[gd_scene load_steps=47 format=4 uid="uid://b4lbffa2xhd1l"]
 
 [ext_resource type="AudioStream" uid="uid://bs58b1312ng2r" path="res://assets/audio/music/blizzard_bg.mp3" id="1_26lro"]
 [ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/fall_check.gd" id="11_37dur"]
 [ext_resource type="PackedScene" uid="uid://lr3c4e0dtxgv" path="res://assets/shovel/source/Lowpoly_pala.fbx" id="13_5ix7k"]
 [ext_resource type="Script" path="res://scripts/shovel.gd" id="14_8ma0h"]
+[ext_resource type="AudioStream" uid="uid://nijy3dkwowik" path="res://assets/audio/music/generator.mp3" id="16_e4kjj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0hhfp"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -309,9 +310,10 @@ shape = SubResource("BoxShape3D_56n6i")
 [node name="GenOne" type="Node3D" parent="."]
 transform = Transform3D(-0.202513, -0.303468, -0.931072, -0.0644978, 0.952842, -0.296534, 0.977153, -1.31427e-08, -0.212536, 105.482, -17.3744, -99.1695)
 
-[node name="fusebox" parent="GenOne" instance=ExtResource("6_arqhe")]
+[node name="fusebox" parent="GenOne" node_paths=PackedStringArray("gen_sound") instance=ExtResource("6_arqhe")]
 transform = Transform3D(-0.0019646, -0.00220964, 0.0398906, -0.00350533, 0.0397943, 0.00203167, -0.0397977, -0.00339598, -0.00214813, -11.9103, 6.09551, 8.16414)
 script = ExtResource("9_7ql04")
+gen_sound = NodePath("../../Generator2")
 
 [node name="Area3D" type="Area3D" parent="GenOne/fusebox"]
 
@@ -432,9 +434,10 @@ mesh = SubResource("BoxMesh_g2gec")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
 mesh = SubResource("BoxMesh_4k2bb")
 
-[node name="fusebox" parent="GenTwo" instance=ExtResource("6_arqhe")]
+[node name="fusebox" parent="GenTwo" node_paths=PackedStringArray("gen_sound") instance=ExtResource("6_arqhe")]
 transform = Transform3D(-0.0242261, -0.00223375, -0.0317507, -0.00367257, 0.039831, 4.07763e-09, 0.0316166, 0.00291518, -0.0243289, 13.6487, 4.49072, 0.508129)
 script = ExtResource("9_7ql04")
+gen_sound = NodePath("../../Generator")
 
 [node name="Area3D" type="Area3D" parent="GenTwo/fusebox"]
 
@@ -555,6 +558,16 @@ script = ExtResource("14_8ma0h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shovel/Area3D"]
 shape = SubResource("SphereShape3D_45moy")
+
+[node name="Generator" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.4644, 4.40219, 42.2521)
+stream = ExtResource("16_e4kjj")
+volume_db = -10.0
+
+[node name="Generator2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.426, -13.3436, -104.58)
+stream = ExtResource("16_e4kjj")
+volume_db = -15.0
 
 [connection signal="body_entered" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_entered"]
 [connection signal="body_exited" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_exited"]

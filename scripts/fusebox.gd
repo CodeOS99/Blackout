@@ -5,6 +5,8 @@ var player_in := false
 var max_prog: float = 1.5
 var curr_prog: float = 0
 
+@export var gen_sound: Node3D
+
 func _process(delta: float) -> void:
 	if player_in and Input.is_action_pressed("interact"):
 		if curr_prog < max_prog:
@@ -15,6 +17,8 @@ func _process(delta: float) -> void:
 	if curr_prog < max_prog:
 		$Label3D.text = "Progress: [" + str(floor(curr_prog/max_prog * 100) if curr_prog > 0 else 0) + "%]"
 	else:
+		if not gen_sound.playing:
+			gen_sound.play()
 		$Label3D.text = "Fixed"
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
