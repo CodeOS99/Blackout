@@ -1,5 +1,6 @@
-[gd_scene load_steps=38 format=4 uid="uid://b4lbffa2xhd1l"]
+[gd_scene load_steps=40 format=4 uid="uid://b4lbffa2xhd1l"]
 
+[ext_resource type="AudioStream" uid="uid://bs58b1312ng2r" path="res://assets/audio/music/blizzard_bg.mp3" id="1_26lro"]
 [ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
 [ext_resource type="PackedScene" uid="uid://d3cdat5hlunpu" path="res://assets/doors/Door A.fbx" id="3_5xfrt"]
 [ext_resource type="Material" uid="uid://0srlogl3whdu" path="res://assets/materials/wall.tres" id="3_qxcw0"]
@@ -94,6 +95,9 @@ size = Vector3(52.87, 5.095, 6.245)
 [sub_resource type="BoxShape3D" id="BoxShape3D_csitc"]
 size = Vector3(26.7909, 14.4498, 25)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_56n6i"]
+size = Vector3(34.1566, 17.2492, 24.5321)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rs3iu"]
 resource_name = "BaseModels_initialShadingGroup"
 cull_mode = 2
@@ -138,6 +142,11 @@ shadow_mesh = SubResource("ArrayMesh_yew05")
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nc6vw"]
 
 [node name="MainGame" type="Node3D"]
+
+[node name="BlizzardBg" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_26lro")
+volume_db = -12.0
+autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ik1a0")
@@ -267,11 +276,19 @@ script = ExtResource("5_7hb0s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.895447, 6.7249, 0)
 shape = SubResource("BoxShape3D_csitc")
 
+[node name="BlizzardShaderDetector2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.05, -20.6171, -90.3271)
+script = ExtResource("5_7hb0s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlizzardShaderDetector2"]
+transform = Transform3D(0.950445, -0.310892, 0, 0.310892, 0.950445, 0, 0, 0, 1, 0.789017, 7.87013, -9.00625)
+shape = SubResource("BoxShape3D_56n6i")
+
 [node name="GenOne" type="Node3D" parent="."]
 transform = Transform3D(-0.202513, -0.303468, -0.931072, -0.0644978, 0.952842, -0.296534, 0.977153, -1.31427e-08, -0.212536, 105.482, -17.3744, -99.1695)
 
 [node name="fusebox" parent="GenOne" instance=ExtResource("6_arqhe")]
-transform = Transform3D(-0.00846554, -0.000780557, 0.0390861, -0.00367257, 0.039831, 4.17233e-09, -0.0389211, -0.00358868, -0.00850144, -10.1877, 6.09551, 7.78947)
+transform = Transform3D(-0.0019646, -0.00220964, 0.0398906, -0.00350533, 0.0397943, 0.00203167, -0.0397977, -0.00339598, -0.00214813, -11.9103, 6.09551, 8.16414)
 
 [node name="Sketchfab_Scene" parent="GenOne" instance=ExtResource("7_ts2f2")]
 transform = Transform3D(-0.00637608, -7.8992e-06, 0.0293146, -3.71691e-05, 0.03, -5.73373e-10, -0.0293146, -3.632e-05, -0.00637608, -5.59423, 0.400944, -0.24588)
@@ -484,6 +501,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6915, 5.20442, 3.76738)
 
 [connection signal="body_entered" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_entered"]
 [connection signal="body_exited" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_exited"]
+[connection signal="body_entered" from="BlizzardShaderDetector2" to="BlizzardShaderDetector2" method="_on_body_entered"]
+[connection signal="body_exited" from="BlizzardShaderDetector2" to="BlizzardShaderDetector2" method="_on_body_exited"]
 [connection signal="body_entered" from="FallCheck" to="FallCheck" method="_on_body_entered"]
 
 [editable path="Player"]
