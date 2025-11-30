@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://b4lbffa2xhd1l"]
+[gd_scene load_steps=38 format=4 uid="uid://b4lbffa2xhd1l"]
 
 [ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
 [ext_resource type="PackedScene" uid="uid://d3cdat5hlunpu" path="res://assets/doors/Door A.fbx" id="3_5xfrt"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://2whsxio34ksg" path="res://assets/generator/old_generator_game_asset.glb" id="7_ts2f2"]
 [ext_resource type="PackedScene" uid="uid://7j05u2eiimuu" path="res://assets/humanoids/singlehumanoid.blend" id="8_k8eph"]
 [ext_resource type="ArrayMesh" uid="uid://1xnks4drpsll" path="res://assets/bodybag/body_bag_mesh.tres" id="10_6ymah"]
+[ext_resource type="Script" path="res://scripts/fall_check.gd" id="11_37dur"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0hhfp"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -133,6 +134,8 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yew05")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nc6vw"]
 
 [node name="MainGame" type="Node3D"]
 
@@ -469,8 +472,19 @@ mesh = ExtResource("10_6ymah")
 transform = Transform3D(-40.3992, 184.622, -8.07006e-06, 4.02732e-13, -8.26102e-06, -188.99, -184.622, -40.3992, 1.7659e-06, -50.0024, 0.883317, -26.7618)
 mesh = ExtResource("10_6ymah")
 
+[node name="FallCheck" type="Area3D" parent="."]
+script = ExtResource("11_37dur")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6539, -23.2768, -45.716)
+shape = SubResource("WorldBoundaryShape3D_nc6vw")
+
+[node name="PlayerResetPos" type="Node3D" parent="FallCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6915, 5.20442, 3.76738)
+
 [connection signal="body_entered" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_entered"]
 [connection signal="body_exited" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_exited"]
+[connection signal="body_entered" from="FallCheck" to="FallCheck" method="_on_body_entered"]
 
 [editable path="Player"]
 [editable path="singlehumanoid"]

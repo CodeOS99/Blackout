@@ -20,7 +20,7 @@ shader_parameter/particle_density = 0.4
 shader_parameter/wind_chaos = 1.2
 shader_parameter/vignette_amount = 0.12
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_sey8o")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
