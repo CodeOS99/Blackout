@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://b4lbffa2xhd1l"]
+[gd_scene load_steps=43 format=4 uid="uid://b4lbffa2xhd1l"]
 
 [ext_resource type="AudioStream" uid="uid://bs58b1312ng2r" path="res://assets/audio/music/blizzard_bg.mp3" id="1_26lro"]
 [ext_resource type="PackedScene" uid="uid://dn85pabpofvf6" path="res://scenes/player.tscn" id="1_t0vlm"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://7j05u2eiimuu" path="res://assets/humanoids/singlehumanoid.blend" id="8_k8eph"]
 [ext_resource type="ArrayMesh" uid="uid://1xnks4drpsll" path="res://assets/bodybag/body_bag_mesh.tres" id="10_6ymah"]
 [ext_resource type="Script" path="res://scripts/fall_check.gd" id="11_37dur"]
+[ext_resource type="PackedScene" uid="uid://lr3c4e0dtxgv" path="res://assets/shovel/source/Lowpoly_pala.fbx" id="13_5ix7k"]
+[ext_resource type="Script" path="res://scripts/shovel.gd" id="14_8ma0h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0hhfp"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -140,6 +142,9 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yew05")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nc6vw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_45moy"]
+radius = 4.2767
 
 [node name="MainGame" type="Node3D"]
 
@@ -499,11 +504,22 @@ shape = SubResource("WorldBoundaryShape3D_nc6vw")
 [node name="PlayerResetPos" type="Node3D" parent="FallCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6915, 5.20442, 3.76738)
 
+[node name="Shovel" parent="." instance=ExtResource("13_5ix7k")]
+transform = Transform3D(0.205289, -0.402408, 1.21899, 0.402838, 1.19231, 0.32576, -1.21884, 0.326292, 0.312979, 108.125, -16.0172, -95.6977)
+script = ExtResource("14_8ma0h")
+
+[node name="Area3D" type="Area3D" parent="Shovel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shovel/Area3D"]
+shape = SubResource("SphereShape3D_45moy")
+
 [connection signal="body_entered" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_entered"]
 [connection signal="body_exited" from="BlizzardShaderDetector" to="BlizzardShaderDetector" method="_on_body_exited"]
 [connection signal="body_entered" from="BlizzardShaderDetector2" to="BlizzardShaderDetector2" method="_on_body_entered"]
 [connection signal="body_exited" from="BlizzardShaderDetector2" to="BlizzardShaderDetector2" method="_on_body_exited"]
 [connection signal="body_entered" from="FallCheck" to="FallCheck" method="_on_body_entered"]
+[connection signal="body_entered" from="Shovel/Area3D" to="Shovel" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Shovel/Area3D" to="Shovel" method="_on_area_3d_body_exited"]
 
 [editable path="Player"]
 [editable path="singlehumanoid"]

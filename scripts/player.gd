@@ -53,16 +53,29 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
+			if Globals.snow_steps:
+				if not $SnowSteps.playing:
+					$SnowSteps.play()
+				$Footsteps.stop()
+			else:
+				if not $Footsteps.playing:
+					$Footsteps.play()
+				$SnowSteps.stop()
 		else:
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
+			$Footsteps.stop()
+			$SnowSteps.stop()
 	else:
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
+		$Footsteps.stop()
+		$SnowSteps.stop()
 	
 	# Head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
@@ -86,3 +99,6 @@ func add_dialogue(text: String, wait_time: float): # wait_time is the time for w
 	dialogue_label.text = text
 	dialogue_label.wait_time = wait_time
 	dialogue_label.typing = true
+
+func is_shovel_in_range(in_range: bool):
+	$CanvasLayer/HUD/PickupShovelLabel.visible = in_range
