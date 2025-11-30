@@ -4,8 +4,8 @@ class_name Player extends CharacterBody3D
 
 var speed
 const WALK_SPEED = 5.0
-const SPRINT_SPEED = 15.0
-const JUMP_VELOCITY = 4.8
+const SPRINT_SPEED = 8.0
+const JUMP_VELOCITY = 9.8
 const SENSITIVITY = 0.004
 
 #bob variables
@@ -31,7 +31,7 @@ var gravity = 9.8
 func _ready():
 	Globals.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	#add_dialogue("one two", 3)
+	add_dialogue("Its winter again.\nI need to go turn on the generators.", 3)
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -118,10 +118,8 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
-func add_dialogue(text: String, wait_time: float): # wait_time is the time for which the ocmplete text is shown
-	dialogue_label.text = text
-	dialogue_label.wait_time = wait_time
-	dialogue_label.typing = true
+func add_dialogue(text: String, wait_time: float, font_size: int = 24):
+	dialogue_label.start_dialogue(text, wait_time, font_size)
 
 func is_shovel_in_range(in_range: bool):
 	$CanvasLayer/HUD/PickupShovelLabel.visible = in_range
@@ -137,7 +135,7 @@ func is_fusebox_in_range(in_range: bool):
 func get_generator():
 	quest_completed += 1
 	if quest_completed == 2:
-		add_dialogue("Finally I can sleep now...", 3)
+		add_dialogue("Finally I can sleep now...", 3, 50)
 		var t = get_tree().create_timer(6)
 		t.timeout.connect(func():
 			get_tree().change_scene_to_file("res://scenes/end.tscn")

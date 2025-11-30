@@ -59,7 +59,7 @@ offset_right = 39.0
 offset_bottom = 94.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Main Menu"
+text = "Quit Now"
 script = ExtResource("1_2ttql")
 
 [connection signal="pressed" from="MainMenuButton" to="MainMenuButton" method="_on_pressed"]
