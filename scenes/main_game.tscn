@@ -433,7 +433,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
 mesh = SubResource("BoxMesh_4k2bb")
 
 [node name="fusebox" parent="GenTwo" instance=ExtResource("6_arqhe")]
-transform = Transform3D(-0.0242261, -0.00223375, -0.0317507, -0.00367257, 0.039831, 4.07763e-09, 0.0316166, 0.00291518, -0.0243289, 13.6487, 6.09551, 0.508129)
+transform = Transform3D(-0.0242261, -0.00223375, -0.0317507, -0.00367257, 0.039831, 4.07763e-09, 0.0316166, 0.00291518, -0.0243289, 13.6487, 4.49072, 0.508129)
+script = ExtResource("9_7ql04")
+
+[node name="Area3D" type="Area3D" parent="GenTwo/fusebox"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GenTwo/fusebox/Area3D"]
+transform = Transform3D(1, -1.49012e-08, -1.49012e-08, 1.49012e-08, 1, -3.72529e-09, -1.49012e-08, 3.72529e-09, 1, 7.91406, 36.0016, 0)
+shape = SubResource("SphereShape3D_ltm3d")
+
+[node name="Label3D" type="Label3D" parent="GenTwo/fusebox"]
+transform = Transform3D(0.997375, 0.0723437, 0.00307205, -0.0723754, 0.997306, 0.0119021, -0.00220285, -0.0120933, 0.999924, 0.571167, 65.0331, 49.7317)
+pixel_size = 0.2
+billboard = 1
+text = "Progress: 0%"
 
 [node name="Sketchfab_Scene" parent="GenTwo" instance=ExtResource("7_ts2f2")]
 transform = Transform3D(-0.0182466, -2.26075e-05, -0.023813, -3.71691e-05, 0.03, -5.7229e-10, 0.023813, 2.95032e-05, -0.0182466, 4.54842, 0.400944, 2.19693)
@@ -528,7 +541,7 @@ mesh = ExtResource("10_6ymah")
 script = ExtResource("11_37dur")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FallCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6539, -23.2768, -45.716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6539, -25.7271, -45.716)
 shape = SubResource("WorldBoundaryShape3D_nc6vw")
 
 [node name="PlayerResetPos" type="Node3D" parent="FallCheck"]
@@ -549,6 +562,8 @@ shape = SubResource("SphereShape3D_45moy")
 [connection signal="body_exited" from="BlizzardShaderDetector2" to="BlizzardShaderDetector2" method="_on_body_exited"]
 [connection signal="body_entered" from="GenOne/fusebox/Area3D" to="GenOne/fusebox" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="GenOne/fusebox/Area3D" to="GenOne/fusebox" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="GenTwo/fusebox/Area3D" to="GenTwo/fusebox" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="GenTwo/fusebox/Area3D" to="GenTwo/fusebox" method="_on_area_3d_body_exited"]
 [connection signal="body_entered" from="FallCheck" to="FallCheck" method="_on_body_entered"]
 [connection signal="body_entered" from="Shovel/Area3D" to="Shovel" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Shovel/Area3D" to="Shovel" method="_on_area_3d_body_exited"]
