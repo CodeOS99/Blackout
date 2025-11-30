@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dn85pabpofvf6"]
+[gd_scene load_steps=16 format=3 uid="uid://dn85pabpofvf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sey8o"]
 [ext_resource type="AudioStream" uid="uid://dppuop8vnr76a" path="res://assets/audio/music/footsteps.mp3" id="2_b0d0t"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://scripts/shader/screen_snow.gdshader" id="3_fc83t"]
 [ext_resource type="AudioStream" uid="uid://bb35xql543q6a" path="res://assets/audio/music/snow_steps.mp3" id="3_q7ww6"]
 [ext_resource type="PackedScene" uid="uid://lr3c4e0dtxgv" path="res://assets/shovel/source/Lowpoly_pala.fbx" id="4_0i5ad"]
+[ext_resource type="AudioStream" uid="uid://vhsybnxlxynb" path="res://assets/audio/music/squelching_footsteps.mp3" id="4_81l5y"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ngrx"]
 height = 5.0
@@ -121,6 +122,9 @@ volume_db = -10.0
 [node name="SnowSteps" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_q7ww6")
 volume_db = -15.0
+
+[node name="SquelchingFootsteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_81l5y")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_5ngrx")

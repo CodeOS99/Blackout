@@ -63,24 +63,33 @@ func _physics_process(delta):
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
+			if Globals.neither_steps:
+				$SnowSteps.stop()
+				$Footsteps.stop()
+				if not $SquelchingFootsteps.playing:
+					$SquelchingFootsteps.play()
 			if Globals.snow_steps:
 				if not $SnowSteps.playing:
 					$SnowSteps.play()
 				$Footsteps.stop()
+				$SquelchingFootsteps.stop()
 			else:
 				if not $Footsteps.playing:
 					$Footsteps.play()
 				$SnowSteps.stop()
+				$SquelchingFootsteps.stop()
 		else:
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
 			$Footsteps.stop()
 			$SnowSteps.stop()
+			$SquelchingFootsteps.stop()
 	else:
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
 		$Footsteps.stop()
 		$SnowSteps.stop()
+		$SquelchingFootsteps.stop()
 	
 	# Head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
